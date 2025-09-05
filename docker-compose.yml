@@ -1,0 +1,7 @@
+services:
+  vmware-aria:
+    build:
+      context: ./vmware-aria
+    image: vmware-aria_sentinel
+    ports: ['514:514']
+    restart: always
