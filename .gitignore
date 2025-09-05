@@ -1,0 +1,4 @@
+vmware-aria/pipeline/*.conf
+vmware-aria/config/pipelines.yml
+config.py
+*.pyc
