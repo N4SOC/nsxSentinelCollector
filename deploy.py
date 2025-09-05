@@ -5,6 +5,7 @@ import sys
 
 import config
 
+"""
 if os.geteuid() != 0:
     print("Script must be run as root, try using sudo...")
     sys.exit()
@@ -13,7 +14,7 @@ if os.geteuid() != 0:
 def runcmd(cmd):  # Wrapper to make running commands quicker
     runcmd = subprocess.run(cmd.split(" "))
     return runcmd.returncode
-
+"""
 
 pipelinesOutput = """
 - pipeline.id: ingest
@@ -44,7 +45,7 @@ output {
 """
 
 ingestPipelineTemplate = """
-else if [message] !~ "{0}"  {{
+else if [message] =~ "{0}"  {{
           pipeline {{ send_to => ["sentinel-{1}"] }}
 }}
 """
