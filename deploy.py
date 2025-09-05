@@ -69,12 +69,12 @@ for client in config.clients:
     }
     output {
     microsoft-logstash-output-azure-loganalytics {
-        workspace_id => " """
-        + client["workspaceID"]
-        + """"
-        workspace_key => " """
-        + client["workspaceKey"]
-        + """"
+        workspace_id => """"
+        + client["workspaceID"] +
+        """"
+        workspace_key => """"
+        + client["workspaceKey"] +
+        """"
         custom_log_table_name => "vmwarensx"
         }
     }
