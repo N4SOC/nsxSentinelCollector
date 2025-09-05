@@ -3,5 +3,7 @@ services:
     build:
       context: ./vmware-aria
     image: vmware-aria_sentinel
-    ports: ['514:514']
+    ports: 
+      - '514:514'
+      - '514:514/udp'
     restart: always
