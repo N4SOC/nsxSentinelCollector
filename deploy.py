@@ -2,9 +2,6 @@
 import os
 import subprocess
 import sys
-from copy import deepcopy
-
-from genericpath import isdir
 
 import config
 
@@ -13,17 +10,9 @@ def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 
-"""
-try:
-    import yaml
-except ImportError as e:
-    install("pyyaml")
-    import yaml
-
 if os.geteuid() != 0:
     print("Script must be run as root, try using sudo...")
     sys.exit()
-"""
 
 
 def runcmd(cmd):  # Wrapper to make running commands quicker
@@ -127,21 +116,18 @@ with open("vmware-aria/config/pipelines.yml", "w") as ff:
 with open("vmware-aria/pipeline/ingest.conf", "w") as fff:
     fff.write(ingestPipelineOutput)
 
-"""
+
 if runcmd("docker compose down --remove-orphans") == 0:
     print(f"Stopped existing containers")
 else:
     print("Stop Failed")
 
 if runcmd("docker compose build") == 0:
-    print(f"Build Successful - {len(services)} collectors built")
+    print(f"Build Successful - {len(config.clients)} client pipelines built")
 else:
     print("Build Failed")
 
 if runcmd("docker compose up -d") == 0:
-    print(f"Execution Successful - {len(services)} collectors running")
+    print(f"Execution Successful - {len(config.clients)} client pipelines running")
 else:
     print("Execution Failed")
-
-installUpdater()
-"""
