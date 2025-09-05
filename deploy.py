@@ -40,7 +40,7 @@ input {
 }
 filter { }
 output {
-    if [message] == "" { drop {} }
+    if [message] =~ "node4 soc test" { stdout {} }
 """
 
 ingestPipelineTemplate = """
