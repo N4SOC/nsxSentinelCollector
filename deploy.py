@@ -5,11 +5,6 @@ import sys
 
 import config
 
-
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-
 if os.geteuid() != 0:
     print("Script must be run as root, try using sudo...")
     sys.exit()
@@ -18,20 +13,6 @@ if os.geteuid() != 0:
 def runcmd(cmd):  # Wrapper to make running commands quicker
     runcmd = subprocess.run(cmd.split(" "))
     return runcmd.returncode
-
-
-def installUpdater():
-    cwd = os.getcwd()
-    cronScript = f"""
-    #!/usr/bin/env bash
-    cd "{cwd}"
-    /usr/bin/git pull
-    /usr/local/bin/docker compose build
-    /usr/local/bin/docker compose up -d --force-recreate
-    """
-    with open("/etc/cron.daily/sentinel_docker_refresh.sh", "w") as f:
-        f.write(cronScript)
-    runcmd("chmod +x /etc/cron.daily/sentinel_docker_refresh.sh")
 
 
 pipelinesOutput = """
