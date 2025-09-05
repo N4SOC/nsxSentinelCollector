@@ -45,7 +45,7 @@ output {
 
 ingestPipelineTemplate = """
 else if [message] !~ "{0}"  {{
-          pipeline {{ send_to => sentinel-{1} }}
+          pipeline {{ send_to => ["sentinel-{1}"] }}
 }}
 """
 
