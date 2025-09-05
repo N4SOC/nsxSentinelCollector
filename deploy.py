@@ -62,9 +62,9 @@ for client in config.clients:
         }
     filter {
     mutate {
-        add_tag => [ """"
-         + config.collectorTag + 
-        """" ]
+        add_tag => [ "sentinel-"""
+        + config.collectorTag
+        + """" ]
         }
     }
     output {
