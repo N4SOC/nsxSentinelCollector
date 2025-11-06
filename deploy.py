@@ -38,7 +38,16 @@ input {
     type => syslog
   }
 }
-filter { }
+filter {
+  if [message] =~ " PROTO 1 " {
+    drop {
+    }
+  }
+  if [message] =~ "ICMP" {
+    drop {
+    }
+  }
+}
 output {
     if [message] =~ "node4 soc test" { stdout {} }
 """
@@ -61,6 +70,20 @@ for client in config.clients:
         + """"}
         }
     filter {
+       if [message] !~ "SYSTEM" {
+           drop {}
+           }
+
+if [message] =~ "\\"dest_port\\": 53" {
+               drop {}
+
+             }
+
+if [message] =~ "8.8.8.8" {
+               drop {}
+
+             }
+
     mutate {
         add_tag => [ "sentinel-"""
         + config.collectorTag
@@ -75,7 +98,7 @@ for client in config.clients:
         workspace_key => \""""
         + client["workspaceKey"]
         + """"
-        custom_log_table_name => "vmwarensx"
+        custom_log_table_name => "vmwareNSX"
         }
     }
     """
